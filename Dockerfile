@@ -36,7 +36,7 @@ WORKDIR /app
 
 # Copy Go binary, env settings, and static assets folder
 COPY --from=backend-builder /app/url-audit-service .
-COPY --from=backend-builder /app/.env .
+# COPY --from=backend-builder /app/.env .
 COPY --from=backend-builder /app/static ./static
 
 EXPOSE 8080
