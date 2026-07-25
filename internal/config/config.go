@@ -23,8 +23,8 @@ type Config struct {
 func LoadConfig(path string) (*Config, error) {
 	v := viper.New()
 
-	v.SetConfigFile(".env")
 	v.SetConfigType("env")
+	v.SetConfigName(".env")
 	v.AddConfigPath(path)
 	v.AddConfigPath(".")
 
@@ -41,15 +41,7 @@ func LoadConfig(path string) (*Config, error) {
 	v.SetDefault("LOG_LEVEL", "info")
 	v.SetDefault("LOG_FORMAT", "json")
 
-	if err := v.ReadInConfig(); err != nil {
-		// Fallback to environment variables if no config file is found
-		if _, ok := err.(viper.ConfigFileNotFoundError); !ok {
-			// If it's a different error, return it
-			// Note: If .env is missing, ReadInConfig returns an error, but we want to ignore file-not-found errors
-			// net/http will still work using environment variables.
-			return nil, err
-		}
-	}
+	_ = v.ReadInConfig()
 
 	var cfg Config
 	if err := v.Unmarshal(&cfg); err != nil {
