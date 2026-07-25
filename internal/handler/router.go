@@ -29,5 +29,15 @@ func NewRouter(auditHandler *AuditHandler, healthHandler *HealthHandler, l limit
 		v1.GET("/audit/history", auditHandler.GetHistory)
 	}
 
+	// Serve static files
+	r.Static("/assets", "./static/assets")
+	r.StaticFile("/vite.svg", "./static/vite.svg")
+	r.StaticFile("/", "./static/index.html")
+
+	// SPA Fallback for other client routes
+	r.NoRoute(func(c *gin.Context) {
+		c.File("./static/index.html")
+	})
+
 	return r
 }

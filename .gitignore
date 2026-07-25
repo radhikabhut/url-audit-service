@@ -8,3 +8,8 @@ url-audit-service.exe
 # Test coverage
 coverage.out
 *.out
+
+# React Build Artifacts
+static/
+frontend/dist/
+frontend/node_modules/
