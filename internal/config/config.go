@@ -47,6 +47,7 @@ func LoadConfig(path string) (*Config, error) {
 			// If it's a different error, return it
 			// Note: If .env is missing, ReadInConfig returns an error, but we want to ignore file-not-found errors
 			// net/http will still work using environment variables.
+			return nil, err
 		}
 	}
 
